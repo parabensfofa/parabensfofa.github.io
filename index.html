@@ -1,0 +1,106 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <meta charset="utf-8">
+  <title>Parabens tamyr</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- <link rel="manifest" href="manifest.json"> -->
+  <link rel="apple-touch-icon" href="icon.png">
+  <!-- Place favicon.ico in the root directory -->
+  <link href="https://fonts.googleapis.com/css?family=Pacifico&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./css/normalize.css">
+  <link rel="stylesheet" href="./css/main.css">
+  <link rel="stylesheet" href="./css/parabens.css">
+  <link rel="manifest" href="./manifest.json">
+  <meta name="theme-color" content="#fafafa">
+</head>
+
+<body>
+  <!--[if IE]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+  <![endif]-->
+
+  <!-- Add your site or application content here -->
+  <main class="is_container" id="mainContainer">
+    <h1 class="is_title" id="mainTitle"></h1>
+    <h2 id="mainSubtitle" class="is_subtitle is_hidden">Para Barcelona</h2>
+    <input type="text" placeholder="Dime, fofa" class="is_input" id="mainInput">
+  </main>
+  <script src="/js/vendor/modernizr-3.7.1.min.js"></script>
+  <script src="/js/vendor/moment.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <script>window.jQuery || document.write('<script src="js/vendor/jquery-3.4.1.min.js"><\/script>')</script>
+  <script src="/js/plugins.js"></script>
+  <script src="/js/main.js"></script>
+
+  <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
+  <script>
+    window.ga = function () { ga.q.push(arguments) }; ga.q = []; ga.l = +new Date;
+    ga('create', 'UA-XXXXX-Y', 'auto'); ga('set','transport','beacon'); ga('send', 'pageview')
+  </script>
+  <script src="https://www.google-analytics.com/analytics.js" async></script>
+  <script>
+    const SpeechRecognition = window.SpeechRecognition || webkitSpeechRecognition;
+    const recognition = new SpeechRecognition();
+    recognition.lang = 'es-ES'; // Set this to the language of your choice
+
+    $(document).ready(function() {
+      const targetDate = moment('2019-11-14 09:00');
+      const mainTitle = $('#mainTitle');
+      const mainSubtitle = $('#mainSubtitle');
+      const mainInput = $('#mainInput');
+      const mainContainer = $('#mainContainer');
+
+      toggleBackgroundAndFont();
+
+      function toggleBackgroundAndFont() {
+        mainTitle.toggleClass('has_contrast');
+        mainInput.toggleClass('has_contrast');
+        mainSubtitle.toggleClass('has_contrast');
+        mainContainer.toggleClass('has_contrast');
+      }
+
+      function timer() {
+        const now = moment();
+        const tomorrow = moment().add(1, 'day');
+        tomorrow.hour(0);
+        const nextHout = moment().add(1, 'hour');
+        nextHout.minutes(0);
+        const nextMinute = moment().seconds();
+        const daysUntilBCN = targetDate.diff(now, 'days');
+        const hoursUntilBCN = tomorrow.diff(now, 'hours');
+        const minutesUntilBCN = nextHout.diff(now, 'minutes');
+        const seconcsUntilBCN = 60 - nextMinute;
+        const timer = `${daysUntilBCN}:${hoursUntilBCN}:${minutesUntilBCN}:${seconcsUntilBCN}`;
+        $('#mainTitle').text(timer);
+      }
+
+      setInterval(timer, 1000);
+      const intervalId = setInterval(toggleBackgroundAndFont, 1000);
+
+      $(mainInput).keypress(function(event) {
+        const { keyCode, which } = event;
+        if (keyCode === 13 || which === 13) {
+          switch (mainInput.val().toLowerCase()) {
+            case 'pausa':
+            case 'para':
+            case 'stop':
+              clearInterval(intervalId);
+              break;
+            case 'um anho':
+            case 'fran es muy guapo':
+            case 'fran e muito lindo':
+            case 'fran es el mas lindo':
+            case 'sua pochete e muito linda':
+              mainSubtitle.removeClass('is_hidden');
+              break;
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>

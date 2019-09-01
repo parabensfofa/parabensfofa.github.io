@@ -1,0 +1,22 @@
+{
+  "name": "parabenstamyr",
+  "description": "",
+  "type": "privileged",
+  "launch_path": "/index.html",
+  "icons": {
+    "512": "/icon.png",
+    "128": "/icon.png"
+  },
+  "developer": {
+    "name": "Fran Quesada",
+  },
+  "default_locale": "es",
+  "permissions": {
+    "audio-capture" : {
+      "description" : "Audio capture"
+    },
+    "speech-recognition" : {
+      "description" : "Speech recognition"
+    }
+  }
+}
